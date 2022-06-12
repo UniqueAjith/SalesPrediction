@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://codepen.io/skjha5993/pen/bXqWpR.css">
+    <title>Home</title>
+    <style>
+        label {
+            font-weight: 600;
+            color: #555;
+        }
+        body {
+            background-image: linear-gradient(to right, rgb(221, 255, 0) , rgb(106, 255, 0));
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <form id="form" >   
+        <div class="row jumbotron bg-dark">
+            <div class="col-sm-12 form-group">
+                <h1 class="text-center text-white">Let's Predict!</h1>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label class="text-white" for="Item_ID">Item Idendifier</label>
+                <input type="text" class="form-control" name="Item_ID" id="Item_ID" placeholder="Enter Item ID" required>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label class="text-white" for="Weight">Item Weight</label>
+                <input type="text" class="form-control" name="Weight" id="Weight" placeholder="Enter Item Weight" required>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label class="text-white" for="Fat_content">Item Fat Content</label>
+                <select id="Fat_content" name="Fat_content" class="form-control browser-default custom-select">
+                    <option value="Low Fat">Low Fat</option>
+                    <option value="Regular">Regular</option>
+                    <option value="Non-Edible">Non-Edible</option>
+                </select>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label class="text-white" for="Visibility">Item Visibility</label>
+                <input type="text" class="form-control" name="Visibility" id="Visibility" placeholder="Enter Item Visibility" required>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label class="text-white" for="MRP">Item MRP</label>
+                <input type="text" class="form-control" name="MRP" id="MRP" placeholder="Enter Item MRP" required>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label class="text-white" for="Outlet_ID">Outlet Identifier</label>
+                <select id="Outlet_ID" name="Outlet_ID" class="form-control browser-default custom-select">
+                <option value="OUT010">OUT010</option>
+                <option value="OUT013">OUT013</option>
+                <option value="OUT017">OUT017</option>
+                <option value="OUT018">OUT018</option>
+                <option value="OUT019">OUT019</option>
+                <option value="OUT027">OUT027</option>
+                <option value="OUT035">OUT035</option>
+                <option value="OUT045">OUT045</option>
+                <option value="OUT046">OUT046</option>
+                <option value="OUT049">OUT049</option>
+            </select>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label class="text-white" for="Year">Outlet Establishment Year</label>
+                <select id="Year" name="Year" class="form-control browser-default custom-select">
+                <option value="OUT010">1985</option>
+                <option value="OUT013">1987</option>
+                <option value="OUT017">1997</option>
+                <option value="OUT035">1998</option>
+                <option value="OUT018">1999</option>
+                <option value="OUT019">2002</option>
+                <option value="OUT027">2004</option>
+                <option value="OUT035">2007</option>
+                <option value="OUT045">2009</option>
+            </select>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label class="text-white" for="Size">Outlet Size</label>
+                <select id="Size" name="Size" class="form-control browser-default custom-select">
+                <option value="Small">Small</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label class="text-white" for="Location">Outlet Location Type</label>
+                <select id="Location" name="Location" class="form-control browser-default custom-select">
+                <option value="Tier 1">Tier 1</option>
+                <option value="Tier 2">Tier 2</option>
+                <option value="Tier 3">Tier 3</option>
+            </select>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label class="text-white" for="Type">Outlet Type</label>
+                <select id="Type" name="Type" class="form-control browser-default custom-select">
+                <option value="Grocery Store">Grocery Store</option>
+                <option value="Supermarket Type1">Supermarket Type1</option>
+                <option value="Supermarket Type2">Supermarket Type2</option>
+                <option value="Supermarket Type3">Supermarket Type3</option>
+            </select>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label class="text-white" for="Item_type">Item Type</label>
+                <select id="Item_type" name="Item_type" class="form-control browser-default custom-select">
+                <option value="Food">Food</option>
+                <option value="Drinks">Drinks</option>
+                <option value="Non-Consumable">Non-Consumable</option>
+            </select>
+            </div>
+            <div class="col-sm-12 form-group mb-0">
+               <button type="submit" id="sumbitBtn" class="btn btn-primary btn-lg float-right" value="Predict">Predict</button>
+            </div>
+            
+        </div>
+        </form>
+    </div>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        document.getElementById("form").addEventListener("submit", function(event) {
+            event.preventDefault();            
+            var form = new FormData();
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/predict", true);                    
+
+            form.append("Item_ID", document.getElementById("Item_ID").value);
+            form.append("Weight", parseFloat(document.getElementById("Weight").value));
+            form.append("Fat_content", document.getElementById("Fat_content").value);
+            form.append("Visibility", parseFloat(document.getElementById("Visibility").value));
+            form.append("MRP", parseFloat(document.getElementById("MRP").value));
+            form.append("Outlet_ID", document.getElementById("Outlet_ID").value);
+            form.append("Year", parseInt(document.getElementById("Year").value));
+            form.append("Size", document.getElementById("Size").value);
+            form.append("Location", document.getElementById("Location").value);
+            form.append("Type", document.getElementById("Type").value);
+            form.append("Item_type", document.getElementById("Item_type").value);
+
+            xhr.onload = function(e) {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);                                            
+                        swal("Predicted", `The Sales production of ${response.itemid} by ${response.outletid} is $ ${Math.round(response.prediction * 100)/100} price`, "success");
+                    } else {
+                        console.error(xhr.statusText);
+                    }
+                }
+            };         
+            
+            xhr.send(form);
+        });
+    </script>
+</body>
+</html>
